@@ -15,13 +15,14 @@ let playerTwoScore = 0;
 let playerCurrentScore = 0;
 let randomDice;
 
-newGame.addEventListener('click', () => {
+const newGameOn = function () {
   if (playerOneScore >= 100 || playerTwoScore >= 100) {
     playerOne.classList.remove('player--winner');
     playerTwo.classList.remove('player--winner');
     rollDice.removeAttribute('disabled');
     hold.removeAttribute('disabled');
   }
+  dice.style.visibility = 'hidden';
   playerOneScore = 0;
   playerTwoScore = 0;
   playerCurrentScore = 0;
@@ -33,10 +34,14 @@ newGame.addEventListener('click', () => {
     playerTwo.classList.remove('player--active');
     playerOne.classList.add('player--active');
   }
-});
+};
+
+newGame.addEventListener('click', newGameOn);
+newGameOn();
 
 rollDice.addEventListener('click', () => {
   randomDice = Math.floor(Math.random() * 6) + 1;
+  dice.style.visibility = 'visible';
   dice.src = `dice-${randomDice}.png`;
   playerCurrentScore += randomDice;
   if (playerOne.classList.contains('player--active')) {
